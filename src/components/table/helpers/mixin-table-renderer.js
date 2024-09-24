@@ -11,6 +11,7 @@ import { makeProp } from '../../../utils/props'
 import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { toString } from '../../../utils/string'
 import { attrsMixin } from '../../../mixins/attrs'
+import { SLOT_NAME_CUSTOM_CHILDREN } from '../../../constants/slots'
 
 // Main `<table>` render mixin
 // Includes all main table styling options
@@ -158,12 +159,16 @@ export const tableRendererMixin = extend({
       renderColgroup,
       renderThead,
       renderTbody,
-      renderTfoot
+      renderTfoot,
+      renderCustomChildren
     } = safeVueInstance(this)
 
     const $content = []
     if (this.isTableSimple) {
       $content.push(this.normalizeSlot())
+    } else if (this.hasNormalizedSlot(SLOT_NAME_CUSTOM_CHILDREN)) {
+      // This slot cannot be combined
+      $content.push(renderCustomChildren ? renderCustomChildren() : null)
     } else {
       // Build the `<caption>` (from caption mixin)
       $content.push(renderCaption ? renderCaption() : null)
