@@ -23,6 +23,7 @@ import { tbodyMixin, props as tbodyProps } from './helpers/mixin-tbody'
 import { tfootMixin, props as tfootProps } from './helpers/mixin-tfoot'
 import { theadMixin, props as theadProps } from './helpers/mixin-thead'
 import { topRowMixin, props as topRowProps } from './helpers/mixin-top-row'
+import { customChildrenMixin, props as customChildrenProps } from './helpers/mixin-custom-children'
 
 // --- Props ---
 
@@ -45,7 +46,8 @@ export const props = makePropsConfigurable(
     ...tbodyProps,
     ...tfootProps,
     ...theadProps,
-    ...topRowProps
+    ...topRowProps,
+    ...customChildrenProps
   }),
   NAME_TABLE
 )
@@ -82,7 +84,8 @@ export const BTable = /*#__PURE__*/ extend({
     topRowMixin,
     bottomRowMixin,
     busyMixin,
-    providerMixin
+    providerMixin,
+    customChildrenMixin
   ],
   props
   // Render function is provided by `tableRendererMixin`
